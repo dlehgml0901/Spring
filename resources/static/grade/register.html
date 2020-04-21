@@ -71,15 +71,13 @@ footer {
 </head>
 <body>
 <header>
-  <h2>로그인</h2>
+  <h2>점수 등록</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="member/join.html">Join</a></li>
-      <li><a id="a-second" href="#">Login</a></li>
-      <li><a id="a-third" href="#">...</a></li>
+      
     </ul>
   </nav>
   
@@ -87,10 +85,16 @@ footer {
 	<form action="#">
 	<label>ID </label><br>
 	<input id=userid type="text"><br>
-	<label>PASSWORD </label><br>
-	<input id=password type="text"><br><br>
-	<input type="button" id="login-button" value="로그인">
-	<input type="button" id="cancel-button" value="취소">
+	<label>Korean </label><br>
+	<input id=korean type="text"><br>
+	<label>English</label><br>
+	<input id=english type="text"><br>
+	<label>Math</label><br>
+	<input id=math type="text"><br>
+	<label>Java</label><br>
+	<input id=java type="text"><br><br>
+	<input id="register-button" type="button" value="점수 등록">
+	<input id="show-result" type="button" value="총점, 평균, 학점보기">
 	</form>
   </article>
 </section>
@@ -99,39 +103,29 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-$('#a-first').click(function() {
-
-})
-$('#a-second').click(function() {
-
-})
-$('#a-third').click(function() {
-
-})
-$('#login-button').click(function() {
+$('#register-button').click(function(){
+	alert($('#korean').val())
 	$.ajax({
-		url: '/member/login',
+		url: '/grade/register',
 		type: 'post',
 		data: JSON.stringify({
 			userid: $('#userid').val(),
-			password: $('#password').val()}),
+			korean: $('#korean').val(),
+			english: $('#english').val(),
+			math: $('#math').val(),
+			java: $('#java').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function(message){
-			if (message === 'SUCCESS') {
-				location.href = '/grade/register.html'
-			}else{
-				alert('다시 로그인 해주세요')
-				location.href = 'index.html'
-			}
+			alert('점수등록 완료')
 		},
 		error: function(){
-			alert('Networking Error')
+			alert('네트워킹 실패')
 		}
-	})
+	})	
 })
-$('#cancel-button').click(function() {
-
+$('#show-result').click(function(){
+	
 })
 </script>
 </body>

@@ -70,34 +70,30 @@ footer {
 </style>
 </head>
 <body>
-<h2>홈페이지</h2>
 <header>
-  <h2>Cities</h2>
+  <h2>성적표</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="a-first" href="#">Join</a></li>
-      <li><a id="a-second" href="index.html">Login</a></li>
-      <li><a id="a-third" href="#">...</a></li>
+      
     </ul>
   </nav>
   
   <article>
 	<form action="#">
-	<label>NAME</label><br>
-	<input id=name type="text"><br>
 	<label>ID </label><br>
 	<input id=userid type="text"><br>
-	<label>PASSWORD </label><br>
-	<input id=password type="text"><br>
-	<label>SSN</label><br>
-	<input id=ssn type="text"><br>
-	<label>ADDR</label><br>
-	<input id=addr type="text"><br><br>
-	<input type="button" id="join-button" value="회원가입">
-	<input type="button" id="cancel-button" value="취소">
+	<label>Korean </label><br>
+	<input id=korean type="text"><br>
+	<label>English</label><br>
+	<input id=english type="text"><br>
+	<label>Math</label><br>
+	<input id=math type="text"><br><br>
+	<label>Java</label><br>
+	<input id=java type="text"><br><br>
+	<input id="register-button" type="button" value="점수 등록">
 	</form>
   </article>
 </section>
@@ -106,40 +102,7 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-$('#a-first').click(function() {
 
-})
-$('#a-second').click(function() {
-
-})
-$('#a-third').click(function() {
-
-})
-$('#join-button').click(function() {
-	let member = {name: $('#name').val(),
-		userid: $('#userid').val(),
-		password: $('#password').val(),
-		ssn: $('#ssn').val(),
-		addr: $('#addr').val()}
-	alert('입력된 주민번호 : ' + member.ssn)
-	$.ajax({
-		url: '/join',
-		type: 'post',
-		data: JSON.stringify(member),
-		dataType: 'json',
-		contentType: 'application/json',
-		success: function(returnMember){
-			alert(returnMember.name + '님 회원가입 성공!!')
-		},
-		error: function(){
-			alert('회원가입 실패')
-		}
-	})
-	
-})
-$('#cancel-button').click(function() {
-
-})
 </script>
 </body>
 </html>
