@@ -71,84 +71,65 @@ footer {
 </head>
 <body>
 <header>
-  <h2>회원가입</h2>
+  <h2>로또 구매</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-      <li><a id="join_a">Join</a></li>
-      <li><a id="login_a">Login</a></li>
+      
     </ul>
   </nav>
   
   <article>
 	<form action="#">
-	<label>NAME</label><br>
-	<input id=name type="text"><br>
 	<label>ID </label><br>
-	<input id=userid type="text"><br>
-	<label>PASSWORD </label><br>
-	<input id=password type="text"><br>
-	<label>SSN</label><br>
-	<input id=ssn type="text"><br>
-	<label>ADDR</label><br>
-	<input id=addr type="text"><br><br>
-	<input type="button" id="join-button" value="회원가입">
-	<input type="button" id="cancel-button" value="취소">
+	<input id="userid" type="text"><br>
+	<label>로또 번호 입력 (,로 분리해주세요)</label><br>
+	<input id="lotto" type="text"><br><br>
+	<input id="buy-button" type="button" value="로또 구매">
+	<input id="result-button" type="button" value="당첨 결과">
 	</form>
+	<div id="result"></div>
   </article>
 </section>
 
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-$('#join_a')
-	.css('cursor', 'pointer')
-	.click(e => {
-		e.preventDefault()
-		location.href = "join.html"
-	})
-$('#login_a')
-	.css('cursor','pointer')
-	.click(e => {
-		e.preventDefault() 
-		location.href = "../index.html"
-	})
-$('#join-button').click(e => {
+<script type="text/javascript"> //e - 이벤트 객체
+$('#buy-button').click(e => {
 	e.preventDefault()
-/* 	let member = {name: $('#name').val(),
-		userid: $('#userid').val(),
-		password: $('#password').val(),
-		ssn: $('#ssn').val(),
-		addr: $('#addr').val()} */
 	$.ajax({
-		url: '/member/join',
+		url: '/lotto/buy',
 		type: 'post',
 		data: JSON.stringify({
-			name: $('#name').val(),
 			userid: $('#userid').val(),
-			password: $('#password').val(),
-			ssn: $('#ssn').val(),
-			addr: $('#addr').val()}),
+			lotto: $('#lotto').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
-		success: d => {
-			if (d === 'SUCCESS') {
-				location.href="../index.html" //BOM객체 페이지이동.
-			}else{
-				location.href="join.html"
-			}
+		success: d=> {
+			alert(d)
 		},
-		error: (request,status,error)=>{
-			alert("code = "+ request.status + "\n message = " + request.responseText + "\n error = " + error) // 실패 시 처리
+		error: (req, s, err) => {
+			alert("code = " + req.status + " \n message = " + req.responseText + "\n error = " + err)
 		}
 	})
-	
 })
-$('#cancel-button').click(e => {
+$('#result-button').click(e => {
 	e.preventDefault()
+	$.ajax({
+		url: '/lotto/result/' + $('#userid').val(),
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: d=> {
+			$('#result').html('<h3>결과 : ' + d + '</h3>')
+		},
+		error: (req, s, err) => {
+			alert("code = " + req.status + "\n message = " + req.responseText + "\n error = " + err)
+		}
+	})
 })
 </script>
 </body>

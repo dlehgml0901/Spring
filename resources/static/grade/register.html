@@ -84,48 +84,61 @@ footer {
   <article>
 	<form action="#">
 	<label>ID </label><br>
-	<input id=userid type="text"><br>
-	<label>Korean </label><br>
-	<input id=korean type="text"><br>
+	<input id="userid" type="text"><br>
+	<label>Korean</label><br>
+	<input id="korean" type="text"><br>
 	<label>English</label><br>
-	<input id=english type="text"><br>
+	<input id="english" type="text"><br>
 	<label>Math</label><br>
-	<input id=math type="text"><br>
+	<input id="math" type="text"><br>
 	<label>Java</label><br>
-	<input id=java type="text"><br><br>
+	<input id="java" type="text"><br><br>
 	<input id="register-button" type="button" value="점수 등록">
-	<input id="show-result" type="button" value="총점, 평균, 학점보기">
+	<input id="credit-button" type="button" value="총점, 평균, 학점보기">
 	</form>
+	<div id="result"></div>
   </article>
 </section>
 
 <footer>
   <p>Footer</p>
 </footer>
-<script type="text/javascript">
-$('#register-button').click(function(){
-	alert($('#korean').val())
+<script type="text/javascript"> //e - 이벤트 객체
+$('#register-button').click(e =>{
+	e.preventDefault() //Default를 막아줌
+	$('#result').html('')
 	$.ajax({
 		url: '/grade/register',
 		type: 'post',
-		data: JSON.stringify({
-			userid: $('#userid').val(),
-			korean: $('#korean').val(),
-			english: $('#english').val(),
-			math: $('#math').val(),
-			java: $('#java').val()}),
+		data: JSON.stringify({userid : $('#userid').val(),
+			korean : $('#korean').val(),
+			english : $('#english').val(),
+			math : $('#math').val(),
+			java : $('#java').val()}),
 		dataType: 'json',
 		contentType: 'application/json',
-		success: function(message){
-			alert('점수등록 완료')
+		success: d=> {
+			alert(d)
 		},
-		error: function(){
-			alert('네트워킹 실패')
+		error: (req, s, err)=>{
+			alert("code = "+ req.status + "\n message = " + req.responseText + "\n error = " + err)
 		}
-	})	
+	})
 })
-$('#show-result').click(function(){
-	
+$('#credit-button').click(e =>{
+	e.preventDefault()
+	$.ajax({
+		url: '/grade/report/' + $('#userid').val(),
+		type: 'get',
+		dataType: 'json',
+		contentType: 'application/json',
+		success: d => {
+			$('#result').html('<h3>총점 : ' + d + '</h3>')
+		},
+		error: (req, s, err) => {
+			alert("code = "+ req.status + "\n message = " + req.responseText + "\n error = " + err)
+		}
+	})
 })
 </script>
 </body>

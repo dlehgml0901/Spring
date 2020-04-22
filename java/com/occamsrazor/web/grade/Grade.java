@@ -1,4 +1,4 @@
-package com.occamsrazor.grade;
+package com.occamsrazor.web.grade;
 
 import lombok.Data;
 
