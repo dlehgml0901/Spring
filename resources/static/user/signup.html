@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,13 +72,13 @@ footer {
 </head>
 <body>
 <header>
-  <h2>사용자 등록</h2>
+  <h2>사용자 가입</h2>
 </header>
 
 <section>
   <nav>
     <ul>
-    	<li><a id=home_a>홈으로</a></li>
+      <li><a id="home_a">홈으로</a></li>
     </ul>
   </nav>
   
@@ -93,7 +94,7 @@ footer {
 	<input id=ssn type="text"><br>
 	<label>ADDR</label><br>
 	<input id=addr type="text"><br><br>
-	<input type="button" id="join-button" value="회원가입">
+	<input type="button" id="signup-button" value="사용자 가입">
 	<input type="button" id="cancel-button" value="취소">
 	</form>
   </article>
@@ -103,33 +104,15 @@ footer {
   <p>Footer</p>
 </footer>
 <script type="text/javascript">
-/* $('#join_a')
-	.css('cursor', 'pointer')
-	.click(e => {
-		e.preventDefault()
-		location.href = "join.html"
-	})
-$('#login_a')
-	.css('cursor','pointer')
-	.click(e => {
-		e.preventDefault() 
-		location.href = "../index.html"
-	}) */
 $('#home_a')
 	.css('cursor', 'pointer')
 	.click( e=> {
 		e.preventDefault()
-		location.href="../index.html"
+		location.href = "../index.html"
 	})
-$('#join-button').click(e => {
-	e.preventDefault()
-/* 	let member = {name: $('#name').val(),
-		userid: $('#userid').val(),
-		password: $('#password').val(),
-		ssn: $('#ssn').val(),
-		addr: $('#addr').val()} */
+$('#signup-button').click( e=> {
 	$.ajax({
-		url: '/member/join',
+		url: '/user/join',
 		type: 'post',
 		data: JSON.stringify({
 			name: $('#name').val(),
@@ -140,17 +123,17 @@ $('#join-button').click(e => {
 		dataType: 'json',
 		contentType: 'application/json',
 		success: d => {
-			if (d === 'SUCCESS') {
-				location.href="../index.html" //BOM객체 페이지이동.
+			if (d === 'SUCCESS') {				
+				location.href='signin.html'
 			}else{
-				location.href="join.html"
+				location.href='signup.html'
 			}
 		},
-		error: (request,status,error)=>{
-			alert("code = "+ request.status + "\n message = " + request.responseText + "\n error = " + error) // 실패 시 처리
+		error: (req, s, err) => {
+			alert("code = " + req.status + "\n message = " + req.responseText + "\n error = " + err
+					)
 		}
 	})
-	
 })
 $('#cancel-button').click(e => {
 	e.preventDefault()

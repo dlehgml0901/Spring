@@ -25,6 +25,6 @@ public class LottoController {
 	
 	@GetMapping("/result/{userid}")
 	public LottoResult result(@PathVariable String userid) {
-		return lottoService.detail(userid);
+		return lottoService.result(userid);
 	}
 }

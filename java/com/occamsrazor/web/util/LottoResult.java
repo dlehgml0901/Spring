@@ -1,5 +1,5 @@
 package com.occamsrazor.web.util;
 
 public enum LottoResult {
-	A, B, C, D;
+	일등, 이등, 삼등, 사등, 꽝;
 }
