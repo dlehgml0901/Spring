@@ -115,6 +115,7 @@ $('#signin-button').click( e=> {
 		contentType: 'application/json',
 		success: d=> {
 			if (d.messenger === 'SUCCESS') {
+				sessionStorage.setItem('userid', d.user.userid)
 				location.href='mypage.html'
 			}else{
 				alert('다시 로그인 해주세요')

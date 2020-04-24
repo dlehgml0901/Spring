@@ -37,6 +37,19 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User detail(String userid) {
-		return (User) map.get(userid);
+		User t = (User) map.get(userid);
+		return t;
+	}
+
+	@Override
+	public boolean update(User user) {
+		map.replace(user.getUserid(), user);
+		return true;
+	}
+
+	@Override
+	public boolean remove(String userid) {
+		map.remove(userid);
+		return true;
 	}
 }
