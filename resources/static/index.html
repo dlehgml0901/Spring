@@ -136,8 +136,7 @@ $('#login-button').click(e => {
 		contentType: 'application/json',
 		success: d => {
 			if (d === 'SUCCESS') {
-				/* location.href = '/grade/register.html' */
-				location.href = '/grade/register.html'
+				location.href = '/member/list.html'
 			}else{
 				alert('다시 로그인 해주세요')
 				location.href = 'index.html'

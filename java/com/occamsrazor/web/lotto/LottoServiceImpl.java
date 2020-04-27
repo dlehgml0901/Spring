@@ -71,6 +71,7 @@ public class LottoServiceImpl implements LottoService{
 		return overlap;
 	}
 
+	@SuppressWarnings("unused")
 	private int[] lottoNumbers() {
 		int[] randoms = new int[5];
 		Random ran = new Random();
