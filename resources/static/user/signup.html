@@ -85,17 +85,18 @@ footer {
   <article>
 	<form action="#">
 	<label>NAME</label><br>
-	<input id=name type="text"><br>
+	<input id="name" type="text"/><br>
 	<label>ID </label><br>
-	<input id=userid type="text"><br>
+	<input id="userid" type="text"/>
+	<input id="id-search" type="button" value="중복 체크"/><br>
 	<label>PASSWORD </label><br>
-	<input id=password type="text"><br>
+	<input id="password" type="text"/><br>
 	<label>SSN</label><br>
-	<input id=ssn type="text"><br>
+	<input id="ssn" type="text"/><br>
 	<label>ADDR</label><br>
-	<input id=addr type="text"><br><br>
-	<input type="button" id="signup-button" value="사용자 가입">
-	<input type="button" id="cancel-button" value="취소">
+	<input id="addr" type="text"/><br><br>
+	<input type="button" id="signup-button" value="사용자 가입"/>
+	<input type="button" id="cancel-button" value="취소"/>
 	</form>
   </article>
 </section>
@@ -110,6 +111,12 @@ $('#home_a')
 		e.preventDefault()
 		location.href = "../index.html"
 	})
+$('#id-search').click( e=> {
+	e.preventDefault()
+	$.getJSON('/user/idsearch/'+$('#userid').val(), d=>{
+		alert((d === 'SUCCESS')? '사용할 수 있는 아이디 입니다.' : '중복된 아이디 입니다.')
+	})
+})
 $('#signup-button').click( e=> {
 	$.ajax({
 		url: '/user/join',
@@ -130,8 +137,7 @@ $('#signup-button').click( e=> {
 			}
 		},
 		error: (req, s, err) => {
-			alert("code = " + req.status + "\n message = " + req.responseText + "\n error = " + err
-					)
+			alert("code = " + req.status + "\n message = " + req.responseText + "\n error = " + err)
 		}
 	})
 })

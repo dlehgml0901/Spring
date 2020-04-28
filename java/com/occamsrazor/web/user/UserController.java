@@ -35,6 +35,12 @@ public class UserController {
 		return userService.readFile();
 	}
 	
+	@GetMapping("/idsearch/{userid}")
+	public Messenger idsearch(@PathVariable String userid) {
+		System.out.println("idCheck 정보:::"+userid);
+		return(userService.idSearch(userid))?Messenger.SUCCESS:Messenger.FAIL;
+	}
+	
 	@PostMapping("/login")
 	public Map<String, Object> login(@RequestBody User user) {
 		Map<String, Object> returnMap = new HashMap<>();
